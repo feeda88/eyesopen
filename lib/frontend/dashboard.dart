@@ -262,14 +262,57 @@ class _DashboardState extends State<Dashboard> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _navigateToProfileOrSignup,
-        backgroundColor: const Color(0xFF6E4B3A), // Dark brown button color
-        child: Icon(
-          isLoggedIn ? Icons.person : Icons.person_add,
-          color: Colors.white,
-        ),
-      ),
+floatingActionButton: FloatingActionButton(
+  onPressed: () {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20), // Rounded edges
+          ),
+          backgroundColor: Color(0xFFF5F5DC), // Beige background
+          child: AnimatedPositioned(
+            // Position widget dynamically above the app bar
+            top: 50,  // Modify this value to control the vertical position
+            left: 50, // Modify this value to control the horizontal position
+            duration: Duration(milliseconds: 300), // Animation duration
+            curve: Curves.easeInOut, // Smooth transition
+            child: Container(
+              padding: EdgeInsets.all(20),
+              width: double.infinity,
+              height: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Flying Widget',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'This is a centered floating widget with rounded edges.',
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    child: Text('Close'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  },
+  child: Icon(Icons.add),
+),
+
+
     );
   }
 }
